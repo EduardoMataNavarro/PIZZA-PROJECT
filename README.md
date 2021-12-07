@@ -11,10 +11,23 @@
 
 This project was made with Laravel, Vue, Tailwindcss and MySql.
 
-- [User name 1]('eduardo@tester.com').
-- [User password]('password')
-- [User name 1]('client@tester.com').
-- [User password]('client')
+## To run the project open two terminals and run 
+```
+php artisan serve
+```
+```
+npm run watch
+```
+
+### Seeded users credentials
+```
+- User name 1: eduardo@tester.com
+- User password: 'password'
+```
+```
+- User name 1: client@tester.com
+- User password: 'client'
+```
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 

@@ -21,9 +21,14 @@ window.Vue = require('vue').default;
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('Login', require('./components/Login.vue').default);
+Vue.component('PizzaName', require('./components/PizzaName.vue').default);
+Vue.component('ToppingsGrid', require('./components/ToppingsGrid.vue').default);
+Vue.component('Toppings', require('./components/Toppings.vue').default);
+Vue.component('PizzaTopping', require('./components/PizzaTopping.vue').default);
+Vue.component('Pizza', require('./components/Pizza.vue').default);
 
 
-/**
+/** 
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.

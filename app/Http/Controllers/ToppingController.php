@@ -2,84 +2,87 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Topping;
+use Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use App\Models\Topping;
 
 class ToppingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    //
+    function index() {
+        return response()->json(Topping::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    function create() {
+        if (Auth::user()->role_id == 1) {
+            return view('pages.toppings');
+        } else {
+            return redirect('/pizza');
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    function show($id) {
+        return response()->json(Topping::find($id));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Topping  $topping
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Topping $topping)
-    {
-        //
+    function store(Request $request) {
+        $name       = $request->input('name');
+        $quantity   = $request->input('quantity');
+        $price      = $request->input('price');
+        
+        $file_path = '';
+        if ($request->hasFile('image')) {
+            $file   = $request->file('image');
+            $file_name = $file->store('toppings', 's3');
+            $file_path = env('AWS_URL') . '/' . $file_name;
+        }
+        
+        $newTopping = Topping::create([
+            'name'      => $name,
+            'quantity'  => $quantity,
+            'price'     => $price,
+            'image'     => $file_path,
+        ]);
+        $newTopping->save();
+        
+        return response()->json($newTopping);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Topping  $topping
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Topping $topping)
-    {
-        //
+    function update(Request $request, $id) {
+
+        $name       = $request->input('name');
+        $quantity   = $request->input('quantity');
+        $price      = $request->input('price');
+        
+        $topping = Topping::find($id);
+        if ($topping) {
+
+            $topping->name = $name;
+            $topping->quantity = $quantity;
+            $topping->price = $price;
+
+            if ($request->hasFile('image')) {
+                $file   = $request->file('image');
+                $file_name = $file->store('toppings', 's3');
+                $file_path = env('AWS_URL') . '/' . $file_name;
+
+                $topping->image = $file_path;
+            }
+            $topping->save();
+
+            return response()->json($topping);
+        } else {
+            return response()->json(['error' => 'No records were found']);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Topping  $topping
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Topping $topping)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Topping  $topping
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Topping $topping)
-    {
-        //
+    function delete($id) {
+        $topping = Topping::find($id);
+        if ($topping) {
+            return response()->json($topping->delete());
+        } else {
+            return response()->json(['error' => 'No records were found']);
+        }
     }
 }

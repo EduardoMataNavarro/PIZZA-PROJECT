@@ -26,6 +26,8 @@
                 appearance-none
                 rounded-none
                 shadow-none
+                outline-none
+                focus:border-yellow-500
                 relative
                 block
                 w-full
@@ -46,6 +48,8 @@
               class="
                 appearance-none
                 rounded-none
+                outline-none
+                focus:border-yellow-500
                 relative
                 block
                 shadow
@@ -76,6 +80,7 @@
             type="submit"
             class="
               bg-yellow-400
+              transition-all
               hover:bg-yellow-600
               text-white
               shadow-md
@@ -89,6 +94,7 @@
           >
             Log in
           </button>
+          <span class="block my-2"><a class="decoration-none  hover:underline text-yellow-600" href="{{ route('register') }}">Not a member yet? Create an account...</a> </span>
         </div>
       </form>
     </div>

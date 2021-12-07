@@ -25,6 +25,8 @@
                 appearance-none
                 rounded-none
                 shadow-none
+                outline-none
+                focus:border-yellow-500
                 relative
                 block
                 w-full
@@ -47,6 +49,8 @@
                 appearance-none
                 rounded-none
                 shadow-none
+                outline-none
+                focus:border-yellow-500
                 relative
                 block
                 w-full
@@ -67,6 +71,8 @@
               class="
                 appearance-none
                 rounded-none
+                outline-none
+                focus:border-yellow-500
                 relative
                 block
                 shadow
@@ -88,6 +94,8 @@
               class="
                 appearance-none
                 rounded-none
+                outline-none
+                focus:border-yellow-500
                 relative
                 block
                 shadow

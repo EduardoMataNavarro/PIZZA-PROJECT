@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -44,5 +45,8 @@ class User extends Authenticatable
 
     function Pizzas() {
         return $this->hasMany(Pizza::class);
+    }
+    function Role() {
+        return $this->hasOne(Role::class);
     }
 }

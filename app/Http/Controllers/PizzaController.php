@@ -2,84 +2,50 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pizza;
+use Auth;
 use Illuminate\Http\Request;
+use App\Models\Topping;
+use App\Models\Pizza;
 
 class PizzaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    //
+    function index() {
+
+        $pizzas = Pizza::where('user_id', Auth::id())->get();
+        
+        return view('pages.pizzas', [ 'pizzas' => $pizzas ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    function create() {
+        $toppings = Topping::all();
+
+        // return $toppings;
+        return view('pages.pizza', [ 'toppings' => $toppings ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    function store(Request $request) {
+        $user_id = Auth::id();
+        $name = $request->input('name');
+        
+        $name = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
+
+        $newPizza = Pizza::create([
+            'user_id' => $user_id,
+            'name' => $name,
+        ]);
+        $newPizza->save();
+
+        return response()->json($newPizza);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Pizza  $pizza
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Pizza $pizza)
-    {
-        //
-    }
+    function show($id) {
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pizza  $pizza
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pizza $pizza)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pizza  $pizza
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Pizza $pizza)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Pizza  $pizza
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Pizza $pizza)
-    {
-        //
+        $pizza = Pizza::find($id);
+        $toppings = $pizza->toppings;   
+        return view('pages.pizza', [
+            'pizza' => $pizza,
+            'toppings' => $toppings,
+        ]);
     }
 }

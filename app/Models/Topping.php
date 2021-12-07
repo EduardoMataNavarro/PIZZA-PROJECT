@@ -16,7 +16,7 @@ class Topping extends Model
         'price',
     ];
 
-    function Pizzas() {
-        return $this->belongsToMany(Pizza::class)->using(PizzaTopping::class);
+    function pizzas() {
+        return $this->belongsToMany('App\Models\Pizza', 'pizza_toppings');
     }
 }

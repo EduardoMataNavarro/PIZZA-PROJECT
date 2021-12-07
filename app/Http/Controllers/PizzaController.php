@@ -28,7 +28,7 @@ class PizzaController extends Controller
         $user_id = Auth::id();
         $name = $request->input('name');
         
-        $name = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
+        $name = preg_replace('/[^A-Za-z0-9\-]/', ' ', $name);
 
         $newPizza = Pizza::create([
             'user_id' => $user_id,

@@ -22,11 +22,11 @@ npm run watch
 ### Seeded users credentials
 ```
 - User name 1: eduardo@tester.com
-- User password: 'password'
+- User password: password
 ```
 ```
 - User name 1: client@tester.com
-- User password: 'client'
+- User password: client
 ```
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.

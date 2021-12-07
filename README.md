@@ -25,7 +25,7 @@ npm run watch
 - User password: password
 ```
 ```
-- User name 1: client@tester.com
+- User name 2: client@tester.com
 - User password: client
 ```
 

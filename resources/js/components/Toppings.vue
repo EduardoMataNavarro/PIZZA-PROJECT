@@ -254,6 +254,7 @@ export default {
             } else {
               console.log(data);
               this.getToppings();
+              this.clearTopping();
             }
           })
           .catch((err) => {
@@ -272,6 +273,7 @@ export default {
               console.log(data.error);
             } else {
               this.getToppings();
+              this.clearTopping();
             }
           })
           .catch((err) => {

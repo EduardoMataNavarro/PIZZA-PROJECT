@@ -21,7 +21,8 @@ class ToppingSeeder extends Seeder
             'price' => 1,
             'image' => '',
         ]);
-        Toppings::create([
+        
+        Topping::create([
             'name' => 'meatballs',
             'quantity' => 100,
             'price' => 1,

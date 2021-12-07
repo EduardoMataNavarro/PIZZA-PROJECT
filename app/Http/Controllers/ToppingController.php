@@ -34,9 +34,11 @@ class ToppingController extends Controller
         $file_path = '';
         if ($request->hasFile('image')) {
             try {
-                $file_path = uploadImage($request->file('image'));
-            } catch (Throwable $ex) {
-                // DO NOTHING
+                $file   = $request->file('image');
+                $file_name = $file->store('toppings', 's3');
+                $file_path = env('AWS_URL') . '/' . $file_name; 
+            } catch (\Throwable $th) {
+                // Do nothing
             }
         }
         
@@ -67,10 +69,14 @@ class ToppingController extends Controller
             $file_path = '';
             if ($request->hasFile('image')) {
                 try {
-                   $file_path = uploadImage($request->file('image'));   
-                } catch (Throwable $ex) {
-                    // DO NOTHING
+                    $file   = $request->file('image');
+                    $file_name = $file->store('toppings', 's3');
+                    $file_path = env('AWS_URL') . '/' . $file_name;
+                } catch (\Throwable $th) {
+                    //Do nothing
                 }
+
+                $topping->image = $file_path;
             }
             $topping->save();
 
@@ -87,13 +93,5 @@ class ToppingController extends Controller
         } else {
             return response()->json(['error' => 'No records were found']);
         }
-    }
-
-    function uploadImage($file) {
-
-        $file_name = $file->store('toppings', 's3');
-        $file_path = env('AWS_URL') . '/' . $file_name;
-
-        return $file_path;
     }
 }

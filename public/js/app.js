@@ -5770,6 +5770,8 @@ __webpack_require__.r(__webpack_exports__);
             console.log(data);
 
             _this2.getToppings();
+
+            _this2.clearTopping();
           }
         })["catch"](function (err) {
           console.log(err);
@@ -5786,6 +5788,8 @@ __webpack_require__.r(__webpack_exports__);
             console.log(data.error);
           } else {
             _this2.getToppings();
+
+            _this2.clearTopping();
           }
         })["catch"](function (err) {
           console.log(err);
